@@ -9,3 +9,4 @@ andre_costa - André Costa - secure3
 sofia_rodrigues - Sofia Rodrigues - password
 lucas_ferreira - Lucas Ferreira - 12345ab
 laura_almeida - Laura Almeida - 5678xyz
+. - Teste - .
