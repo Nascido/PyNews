@@ -1,2 +1,3 @@
 # PyNews
-Avaliação 2 da Disciplina de POOII
+### Descrição
+Aplicativo de noticias com API para avaliação de disciplina de POOII
