@@ -1,9 +1,12 @@
 from tkinter import *
+from newsapi import NewsApiClient
 
 
 class PyNews:
     def __init__(self, usuarios):
         self.users = usuarios
+        self.key = "f0092823669c4b4d8e260b1eb30cfc4d"
+        self.api = NewsApiClient(api_key=self.key)
 
     def login(self):
         def checklogin():
@@ -18,6 +21,7 @@ class PyNews:
                     encontrado = True
                     if senha == password:
                         print("Usuário Autenticado")
+                        self.news()
 
                     else:
                         print("Senha incorreta")
@@ -47,3 +51,29 @@ class PyNews:
         login_button.grid(row=3, column=0, columnspan=2)
 
         login.mainloop()
+
+    def news(self):
+        def getnews():
+            # Top Headlines
+            top_headlines = self.api.get_top_headlines(language='en')
+
+            # Clear
+            text.delete(1.0, END)
+
+            # Display
+            for article in top_headlines['articles']:
+                text.insert(END, article['title'] + '\n\n')
+
+        # News Window
+        win = Tk()
+        win.title('News App')
+
+        # Text Widget
+        text = Text(win, height=20, width=50)
+        text.pack()
+
+        # Button Widget
+        button = Button(win, text="Get News", command=getnews)
+        button.pack()
+
+        win.mainloop()
