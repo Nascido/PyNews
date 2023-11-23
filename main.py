@@ -10,4 +10,4 @@ with open('usuarios.txt', 'r') as file:
 
 gui = PyNews(usuarios)
 
-gui.news()
+gui.login()
