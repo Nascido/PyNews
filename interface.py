@@ -85,16 +85,28 @@ class PyNews:
         search_entry = Entry(win)
 
         # From Date
-        from_date_label = Label(win, text="Inicio (Mes e Dia)")
-        from_mes_entry = Entry(win)
-        from_dia_entry = Entry(win)
+        from_date_label = Label(win, text="Inicio (dia/mes)")
+        from_date_entry = Entry(win)
 
         # To Date
-        to_date_label = Label(win, text="Fim (Mes e Dia)")
-        to_mes_entry = Entry(win)
-        to_dia_entry = Entry(win)
+        to_date_label = Label(win, text="Fim (dia/mes)")
+        to_date_entry = Entry(win)
 
         # Buttons
         enter = Button(win, text="Procurar", command=getnews)
+
+        # Layout
+        intro.grid(row=0, column=0, columnspan=4)
+        text.grid(row=1, column=0, columnspan=4)
+
+        from_date_label.grid(row=2, column=0)
+        from_date_entry.grid(row=2, column=1)
+
+        to_date_label.grid(row=2, column=2)
+        to_date_entry.grid(row=2, column=3)
+
+        search_label.grid(row=3, column=0)
+        search_entry.grid(row=3, column=1)
+        enter.grid(row=4, column=0, columnspan=4)
 
         win.mainloop()
