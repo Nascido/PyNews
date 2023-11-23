@@ -7,6 +7,7 @@ class PyNews:
         self.users = usuarios
         self.key = "f0092823669c4b4d8e260b1eb30cfc4d"
         self.api = NewsApiClient(api_key=self.key)
+        self._usr = None
 
     def login(self):
         def checklogin():
@@ -21,6 +22,7 @@ class PyNews:
                     encontrado = True
                     if senha == password:
                         print("Usuário Autenticado")
+                        self._usr = usr
                         self.news()
 
                     else:
@@ -53,27 +55,46 @@ class PyNews:
         login.mainloop()
 
     def news(self):
+        nome = self._usr.getname()
+        intro_usario = f"Bem vindo {nome}"
+        interesse = "Mundo"
+
         def getnews():
             # Top Headlines
-            top_headlines = self.api.get_top_headlines(language='en')
+            news = self.api.get_everything(q=interesse, language='pt')
 
             # Clear
             text.delete(1.0, END)
 
             # Display
-            for article in top_headlines['articles']:
-                text.insert(END, article['title'] + '\n\n')
+            for article in news['articles']:
+                text.insert(END, f"{article['title']} ({article['publishedAt']})\n\n")
 
         # News Window
         win = Tk()
         win.title('News App')
 
-        # Text Widget
-        text = Text(win, height=20, width=50)
-        text.pack()
+        # Intro
+        intro = Label(win, text=intro_usario)
 
-        # Button Widget
-        button = Button(win, text="Get News", command=getnews)
-        button.pack()
+        # News Text
+        text = Text(win, height=20, width=150)
+
+        # Search Context
+        search_label = Label(win, text="Assunto")
+        search_entry = Entry(win)
+
+        # From Date
+        from_date_label = Label(win, text="Inicio (Mes e Dia)")
+        from_mes_entry = Entry(win)
+        from_dia_entry = Entry(win)
+
+        # To Date
+        to_date_label = Label(win, text="Fim (Mes e Dia)")
+        to_mes_entry = Entry(win)
+        to_dia_entry = Entry(win)
+
+        # Buttons
+        enter = Button(win, text="Procurar", command=getnews)
 
         win.mainloop()
