@@ -57,11 +57,30 @@ class PyNews:
     def news(self):
         nome = self._usr.getname()
         intro_usario = f"Bem vindo {nome}"
-        interesse = "Mundo"
 
         def getnews():
-            # Top Headlines
-            news = self.api.get_everything(q=interesse, language='pt')
+            interesse = 'Mundo'
+            busca = search_entry.get()
+            from_colected = from_date_entry.get()
+            to_colected = to_date_entry.get()
+
+            if from_colected != '':
+                from_dia, from_mes = from_colected.strip().split('/')
+                from_data = f"2023-{from_mes}-{from_dia}"
+            else:
+                from_data = None
+
+            if to_colected != '':
+                to_dia, to_mes = to_colected.strip().split('/')
+                to_data = f"2023-{to_mes}-{to_dia}"
+            else:
+                to_data = None
+
+            if busca != '':
+                interesse = busca
+
+            # Headlines
+            news = self.api.get_everything(q=interesse, language='pt', from_param=from_data, to=to_data)
 
             # Clear
             text.delete(1.0, END)
